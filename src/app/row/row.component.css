@@ -1,5 +1,6 @@
 td {
   text-align: center;
+  word-break: break-all;
 }
 
 td:not(:last-child) {

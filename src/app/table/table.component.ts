@@ -17,13 +17,13 @@ export class TableComponent implements OnInit {
   headerValues: Array<string> = [];
   @Output() newItemEvent = new EventEmitter<Object>();
 
-
+  //обработчик события удаления на уровне таблицы
   onDelete = (obj: Object) => {
     this.newItemEvent.emit(obj);
     setTimeout(this.recalcSum.bind(this)); //помещаем в очередь, чтобы функция вызвалась после отработки removeItem
   }
 
-
+  //функция пересчета суммы столбца Count
   recalcSum() {
     this.sum = 0;
     this.data.forEach((value: any) => {
