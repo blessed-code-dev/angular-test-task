@@ -1,7 +1,9 @@
-<td>{{data.Name}}</td>
-<td>{{data.Count}}</td>
-<td>{{data.Job}}</td>
-<td>{{data.Age}}</td>
+<td *ngFor="let key of objectKeys(data)" >{{data[key]}}</td>
+
+<!--<td>{{data.Name}}</td>-->
+<!--<td>{{data.Count}}</td>-->
+<!--<td>{{data.Job}}</td>-->
+<!--<td>{{data.Age}}</td>-->
 <td>
   <button (click)="onDeleteClick()"> Delete</button>
 </td>

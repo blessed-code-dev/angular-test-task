@@ -1,5 +1,4 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
-import {RowComponent} from '../row/row.component';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 
 
 @Component({
@@ -9,29 +8,37 @@ import {RowComponent} from '../row/row.component';
 })
 
 export class TableComponent implements OnInit {
+  //в компоненте таблицы логика отрисовки таблицы по заданным сверху данным
+  //событие клика и удаления передается наверх
 
   @Input()
   data: Array<Object> = [];
   sum: number = 0;
+  headerValues: Array<string> = [];
+  @Output() newItemEvent = new EventEmitter<Object>();
+
+
   onDelete = (obj: Object) => {
-    console.log(this)
-    this.data = this.data.filter(((value: Object) => obj !== value));
-    this.recalcSum();
-    setTimeout(() => {
-      console.log('response accepted');
-    }, 1500)
+    this.newItemEvent.emit(obj);
+    setTimeout(this.recalcSum.bind(this)); //помещаем в очередь, чтобы функция вызвалась после отработки removeItem
   }
 
-  recalcSum(){
+
+  recalcSum() {
     this.sum = 0;
-    this.data.forEach((value:any)=>{
-      this.sum+=value.Count;
+    this.data.forEach((value: any) => {
+      this.sum += value.Count;
     })
   }
 
+
   ngOnInit() {
     this.recalcSum();
+    for (let key in this.data[0]) {
+      if (this.data[0].hasOwnProperty(key)) {
+        this.headerValues.push(key)
+      }
+    }
   }
-
 
 }
