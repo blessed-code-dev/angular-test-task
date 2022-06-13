@@ -14,12 +14,12 @@ export class TableComponent implements OnInit {
   @Input()
   data: Array<Object> = [];
   sum: number = 0;
-  headerValues: Array<string> = [];
-  @Output() newItemEvent = new EventEmitter<Object>();
+  headerValues: Array<string> = []; //названия столбцов в шапке таблицы
+  @Output() removeRowEvent = new EventEmitter<Object>();
 
   //обработчик события удаления на уровне таблицы
   onDelete = (obj: Object) => {
-    this.newItemEvent.emit(obj);
+    this.removeRowEvent.emit(obj);
     setTimeout(this.recalcSum.bind(this)); //помещаем в очередь, чтобы функция вызвалась после отработки removeItem
   }
 
